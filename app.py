@@ -65,7 +65,7 @@ with tab2:
 with tab3:
     st.balloons()
     st.title("Hobbies")
-    items = ["Enjoy playing sports like basketball and volleyball.", "Passionate about online gaming.", "Love drawing anime characters in my spare time. ", "Dedicate some of my free time to practicing new programming languages."]
+    items = ["🏀Enjoy playing sports like basketball and volleyball.", "🎮Passionate about online gaming.", "🎨Love drawing anime characters in my spare time. ", "💻Dedicate some of my free time to practicing new programming languages."]
     markdown_text = "\n".join([f"- {item}" for item in items])
     st.markdown(markdown_text)
 
