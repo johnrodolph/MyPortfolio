@@ -1,16 +1,16 @@
 from PIL import Image
 import streamlit as st
 
-# Set page configuration with dark theme
+
 st.set_page_config(page_title="Personal Portfolio", page_icon=":star:", layout="wide")
 
-# Create tabs for navigation
+
 tab1, tab2, tab3, tab4 = st.tabs(["Home", "About Me", "Hobbies", "Skills"])
 
-# Define the content for each tab
+
 with tab1:
-    # Create a two-column layout
-    col1, col2 = st.columns([1, 1])  # Adjust the ratio as needed
+
+    col1, col2 = st.columns([1, 1])  
     st.balloons()
     with col1:
           
@@ -27,11 +27,11 @@ with tab1:
     )
  
     with col2:
-      # Open the image file
+      
         img = Image.open("jr.jpg")
-        # Resize the image
+        
         img = img.resize((500, 500))
-        # Display the resized image
+       
         st.image(img, use_column_width=False)
 
 with tab2:
@@ -73,8 +73,8 @@ with tab3:
 with tab4:
     st.snow()
     st.title("Skills")
+    st.write("You can see here some of my programming development.")
     
-    # Define skill names and their percentages
     skills = {
         "HTML": 75,
         "JavaScript": 72,
@@ -84,7 +84,6 @@ with tab4:
         "Python": 70
     }
     
-    # Display each skill with a progress bar
     for skill, percentage in skills.items():
         st.markdown(f"**{skill}**")
         st.progress(percentage)
