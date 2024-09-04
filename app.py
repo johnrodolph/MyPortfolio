@@ -1,51 +1,70 @@
 from PIL import Image
 import streamlit as st
+import base64
 
+def load_image(image_file):
+    """Convert image to Base64"""
+    try:
+        with open(image_file, "rb") as file:
+            encoded_string = base64.b64encode(file.read()).decode()
+        return encoded_string
+    except FileNotFoundError:
+        st.error(f"File not found: {image_file}")
+        return ""
 
 st.set_page_config(page_title="Personal Portfolio", page_icon=":star:", layout="wide")
 
+background_image_path = "mountains.png"  
+background_image_base64 = load_image(background_image_path)
+
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/png;base64,{background_image_base64}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 tab1, tab2, tab3, tab4 = st.tabs(["Home", "About Me", "Hobbies", "Skills"])
 
-
 with tab1:
-
-    col1, col2 = st.columns([1, 1])  
+    col1, col2 = st.columns([1, 1])
     st.balloons()
     with col1:
-          
-        st.write('''
-               # WELCOME TO MY PORTFOLIO!
-            ''')  
-        st.markdown(
-        """
-        <div>
-        <h1>I'm John Rodolph Bacalso</h1>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
- 
-    with col2:
-      
-        img = Image.open("jr.jpg")
         
-        img = img.resize((500, 500))
-       
-        st.image(img, use_column_width=False)
+        st.markdown(
+            """
+            <div>
+            <h1 style='color: #DAE2EB'>WELCOME TO MY PORTFOLIO!</h1>
+            <h1 style='color: #DAE2EB'>I'm John Rodolph Bacalso</h1>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with col2:
+        try:
+            img = Image.open("jr.jpg")
+            img = img.resize((500, 500))
+            st.image(img, use_column_width=False)
+        except FileNotFoundError:
+            st.error("Image 'jr.jpg' not found.")
 
 with tab2:
-     st.balloons()
-     st.markdown(
+    st.balloons()
+    st.markdown(
         """
-        <div style="text-align: center; padding: 20px; background-color: #f0f0f0;">
-            <h1 style="color: #333;">About Me</h1>
-            <h3 style="color: #666;">I'm a 4th-year IT student at Cebu Institute of Technology, living in Talisay City, Cebu. I love technology</h3>
-            <h3 style="color: #666;">and want to work as a software developer or tech support. I've learned a lot about coding in JavaScript,</h3>
-            <h3 style="color: #666;">React,C++ and more.</h3>
-            <h3 style="color: #666;">I also want to learn more about web development, web designing, and Game Development . I want to use my</h3>
-            <h3 style="color: #666;">skills to help create new and exciting tech. I’m always eager to learn new things and take on challenges.</h3>
-            <h3 style="color: #666;">I also take online courses to keep learning and improving.</h3>
+        <div style="text-align: center; padding: 20px; background-color: rgba(240, 240, 240, 0.8);">
+            <h1 style="color: #000000;">About Me</h1>
+            <h3 style="color: #000000;">I'm a 4th-year IT student at Cebu Institute of Technology, living in Talisay City, Cebu. I love technology and aim to work as a software developer or tech support.</h3>
+            <h3 style="color: #000000;">I have experience in coding with JavaScript, React, C++, and more. I am eager to expand my knowledge in web development, web design, and game development.</h3>
+            <h3 style="color: #000000;">I’m passionate about using my skills to create exciting new tech and am always ready to take on challenges and learn new things. To keep improving, I regularly take online courses.</h3>
             <div style="margin-top: 20px;">
                 <a href="https://github.com/johnrodolph" target="_blank">
                     <img src="https://img.icons8.com/ios/50/000000/github.png" alt="GitHub" style="margin: 0 10px;" />
@@ -59,22 +78,37 @@ with tab2:
         unsafe_allow_html=True
     )
 
-
-
-
 with tab3:
     st.balloons()
-    st.title("Hobbies")
-    items = ["🏀Enjoy playing sports like basketball and volleyball.", "🎮Passionate about online gaming.", "🎨Love drawing anime characters in my spare time. ", "💻Dedicate some of my free time to practicing new programming languages."]
-    markdown_text = "\n".join([f"- {item}" for item in items])
-    st.markdown(markdown_text)
-
-
+  
+    st.markdown(
+        """
+        
+        <div style="text-align: center; padding: 20px; background-color: rgba(240, 240, 240, 0.8);">
+        <h1 style="color: #000000;">Hobbies</h1>
+        <h3 style="color: #000000;">🏀 Enjoy playing sports like basketball and volleyball.</h1>
+        <h3 style="color: #000000;">🎮 Passionate about online gaming.</h1>
+        <h3 style="color: #000000;">🎨 Love drawing anime characters in my spare time.</h1>
+        <h3 style="color: #000000;">💻 Dedicate some of my free time to practicing new programming languages.</h1>
+    
+    
+    </div>
+        """,
+        unsafe_allow_html=True
+    )
+  
 with tab4:
     st.snow()
-    st.title("Skills")
-    st.write("Below is an overview of my proficiency in various programming languages and development tools:")
-    
+    st.markdown(
+        """
+            <h1 style="color: #DAE2EB;">SKILLS</h1>
+            <h3 style="color: #DAE2EB;">Here’s a breakdown of my expertise in various programming languages and tools:</h3>
+            
+        """,
+        unsafe_allow_html=True
+    )
+
+
     skills = {
         "HTML": 75,
         "JavaScript": 72,
@@ -83,9 +117,9 @@ with tab4:
         "React": 60,
         "Python": 70
     }
-    
+
     for skill, percentage in skills.items():
-        st.markdown(f"**{skill}**")
+        st.markdown(f"<h2 style='color: #DAE2EB'>{skill}</h2>", unsafe_allow_html=True)
         st.progress(percentage)
-        st.markdown(f"{percentage}%")
-        st.markdown("---")
+        st.markdown(f"<h4 style='color: #DAE2EB'>{percentage}%</h4>", unsafe_allow_html=True)
+        
