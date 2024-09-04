@@ -73,7 +73,7 @@ with tab3:
 with tab4:
     st.snow()
     st.title("Skills")
-    st.write("You can see here some of my programming development.")
+    st.write("Below is an overview of my proficiency in various programming languages and development tools:")
     
     skills = {
         "HTML": 75,
